@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Aroma ✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  font-family:'Cinzel',serif;
+
+  background:
+    linear-gradient(rgba(10,10,20,0.6), rgba(10,10,20,0.8)),
+    url('beautiful-historic-bojnice-castle-slovakia-daytime.jpg') center/cover no-repeat;
+
+  color:white;
+}
+
+/* ✨ PARTICLES */
+.particle{
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:white;
+  border-radius:50%;
+  opacity:0.7;
+  animation:float linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+
+/* SCENES */
+.scene{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+}
+
+/* TEXT */
+h1{
+  font-family:'Great Vibes';
+  font-size:3.5rem;
+  color:#ff9ecb;
+}
+
+h2{
+  color:#f5d48a;
+  margin-top:10px;
+}
+
+p{
+  margin-top:20px;
+  width:320px;
+  line-height:1.6;
+  margin-inline:auto;
+}
+
+/* BUTTON */
+button{
+  margin-top:25px;
+  padding:12px 25px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,#ff9ecb,#f5d48a);
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* BLACK TRANSITION */
+#overlay{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ✨ PARTICLES -->
+<script>
+for(let i=0;i<60;i++){
+  let p=document.createElement("div");
+  p.className="particle";
+  p.style.left=Math.random()*100+"%";
+  p.style.animationDuration=(4+Math.random()*6)+"s";
+  document.body.appendChild(p);
+}
+</script>
+
+<!-- AUDIO -->
+<audio id="music" src="music.mp3"></audio>
+
+<!-- TRANSITION -->
+<div id="overlay"></div>
+
+<!-- SCENE 1 -->
+<div class="scene" id="scene1">
+  <h1>Happy Birthday ✨</h1>
+  <h2>Aroma 💖</h2>
+  <button onclick="nextScene()">Tap for Surprise 🎁</button>
+</div>
+
+<!-- SCENE 2 -->
+<div class="scene" id="scene2" style="display:none;">
+  <h1>For You ✨</h1>
+  <p id="message"></p>
+</div>
+
+<script>
+
+/* SWITCH SCENE */
+function nextScene(){
+
+  // ▶️ PLAY MUSIC
+  const music = document.getElementById("music");
+  music.play().catch(()=>{});
+
+  const overlay = document.getElementById("overlay");
+
+  // show black screen
+  overlay.style.display = "block";
+
+  setTimeout(()=>{
+
+    // hide scene 1 completely
+    document.getElementById("scene1").style.display = "none";
+
+    // show scene 2
+    document.getElementById("scene2").style.display = "block";
+
+    // remove black screen
+    overlay.style.display = "none";
+
+    // start typing
+    startTyping();
+
+  },700);
+}
+
+/* TYPING EFFECT */
+const text = `In a world full of ordinary days,
+you make everything feel magical.
+
+You are truly one of a kind 💖
+
+May your life be filled with endless smiles,
+dreams, and love ✨❤️‍🩹`;
+
+let i = 0;
+
+function startTyping(){
+  const el = document.getElementById("message");
+
+  function type(){
+    if(i < text.length){
+      el.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(type,40);
+    }
+  }
+
+  type();
+}
+
+</script>
+
+</body>
+</html>
